@@ -1,5 +1,6 @@
 package com.example.githubuser
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,9 +10,12 @@ import com.example.githubuser.databinding.ItemUserBinding
 import com.example.submissionawal_fundamentalandroid.data.model.Item
 import com.example.submissionawal_fundamentalandroid.data.model.ResponseUserGithub
 
-class UserAdapter (private val data:MutableList<ResponseUserGithub.Item> = mutableListOf()):
+class UserAdapter (private val data:MutableList<ResponseUserGithub.Item> = mutableListOf(),
+    private  val listener : (ResponseUserGithub.Item) -> Unit
+    ):
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
+        @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<ResponseUserGithub.Item>){
         this.data.clear()
         this.data.addAll(data)
@@ -23,7 +27,7 @@ class UserAdapter (private val data:MutableList<ResponseUserGithub.Item> = mutab
             v.image.load(item.avatar_url){
 
             }
-    v.nama.text = item.login
+    v.username.text = item.login
 
 
         }
@@ -35,6 +39,9 @@ class UserAdapter (private val data:MutableList<ResponseUserGithub.Item> = mutab
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = data[position]
+        holder.itemView.setOnClickListener{
+            listener(item)
+        }
         holder.bind(item)
     }
 

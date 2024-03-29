@@ -6,27 +6,20 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.submissionawal_fundamentalandroid.MainViewmodel
 import com.example.submissionawal_fundamentalandroid.data.model.ResponseUserGithub
-import com.example.submissionawal_fundamentalandroid.data.remote.ApiClient
 import com.example.submissionawal_fundamentalandroid.utils.Result
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter by lazy {
-        UserAdapter()
+        UserAdapter{
+
+        }
     }
 
     private val viewModel by viewModels<MainViewmodel> ()
@@ -35,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         binding.recyclerView.layoutManager =LinearLayoutManager(this)
         binding.recyclerView.setHasFixedSize(true)
@@ -54,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                }
            }
         }
-
     viewModel.getUser()
     }
 }

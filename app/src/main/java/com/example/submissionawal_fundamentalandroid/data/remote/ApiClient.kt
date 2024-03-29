@@ -11,8 +11,7 @@ object ApiClient {
     private val okhttp = OkHttpClient.Builder()
         .apply {
             val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = HttpLoggingInterceptor.Level
-                .BODY
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             addInterceptor(loggingInterceptor)
         }
         .readTimeout(25,TimeUnit.SECONDS)
