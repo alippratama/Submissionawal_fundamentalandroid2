@@ -25,10 +25,11 @@ class MainViewmodel:ViewModel() {
         viewModelScope.launch {
             launch(Dispatchers.Main) {
 
+
                 flow {
                     val response = ApiClient
                         .githubService
-                        .getUserGithub()
+                        .getUserGithub(username = String())
 
                     emit(response)
                 }.onStart {
