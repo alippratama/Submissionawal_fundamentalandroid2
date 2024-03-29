@@ -24,7 +24,7 @@ class MainViewmodel:ViewModel() {
     fun getUser(){
         viewModelScope.launch {
             launch(Dispatchers.Main) {
-                git
+
                 flow {
                     val response = ApiClient
                         .githubService
